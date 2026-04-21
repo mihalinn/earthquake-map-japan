@@ -1,12 +1,58 @@
-/**
- * EewManager - 緊急地震速報（EEW）描画管理
- */
 const EewManager = (() => {
   let lastReportId = "";
+  let isTestMode = false;
+  let testData = null;
   
   // 地震波速度 (km/s)
   const VP = 6.3;
   const VS = 3.5;
+
+  // 初期化時にテストボタンのイベントを設定
+  window.addEventListener('load', () => {
+    const testBtn = document.getElementById('test-eew-btn');
+    if (testBtn) {
+        testBtn.onclick = startTest;
+    }
+  });
+
+  /**
+   * テストモード開始
+   */
+  function startTest() {
+    console.log('[EEW] テストモード開始');
+    isTestMode = true;
+    
+    // 現在時刻から10秒前を発生時刻とする模擬データを生成
+    const now = new Date();
+    const origin = new Date(now.getTime() - 10000);
+    const ts = origin.getFullYear() + 
+               String(origin.getMonth() + 1).padStart(2, '0') + 
+               String(origin.getDate()).padStart(2, '0') + 
+               String(origin.getHours()).padStart(2, '0') + 
+               String(origin.getMinutes()).padStart(2, '0') + 
+               String(origin.getSeconds()).padStart(2, '0');
+
+    testData = {
+      result: { status: "success" },
+      region_name: "テスト震源 (伊豆半島付近)",
+      latitude: "35.0",
+      longitude: "139.0",
+      depth: "10km",
+      magunitude: "6.5",
+      calcintensity: "5強",
+      origin_time: ts,
+      report_num: "テスト",
+      is_final: "false"
+    };
+
+    // 60秒後にテストモードを自動終了
+    setTimeout(() => {
+        isTestMode = false;
+        testData = null;
+        clearEew();
+        console.log('[EEW] テストモード終了');
+    }, 60000);
+  }
 
   /**
    * EEW情報を取得・表示
@@ -14,6 +60,11 @@ const EewManager = (() => {
    * @param {string} currentDisplayTime "YYYY/MM/DD HH:mm:ss"
    */
   async function update(timestamp, currentDisplayTime) {
+    if (isTestMode && testData) {
+        processEew(testData, currentDisplayTime);
+        return;
+    }
+
     try {
       const res = await fetch(`/api/kmoni/eew/${timestamp}`);
       const data = await res.json();

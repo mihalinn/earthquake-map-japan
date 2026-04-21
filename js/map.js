@@ -110,7 +110,30 @@ const MapManager = (() => {
       });
     }
 
-    // --- EEW Layers (P/S waves and Hypocenter) ---
+    // 6. 強震モニタ点用ソース
+    map.addSource('kmoni-points', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
+    });
+
+    map.addLayer({
+      id: 'kmoni-points-layer',
+      type: 'circle',
+      source: 'kmoni-points',
+      paint: {
+        'circle-radius': [
+          'interpolate', ['linear'], ['zoom'],
+          5, ['get', 'size'],
+          10, ['*', ['get', 'size'], 2]
+        ],
+        'circle-color': ['get', 'color'],
+        'circle-opacity': 0.9,
+        'circle-stroke-width': 0.5,
+        'circle-stroke-color': '#0e1321'
+      }
+    });
+
+    // --- EEW Layers (P/S waves and Hypocenter) - 最前面に配置 ---
     
     // P波 (青)
     map.addSource('eew-p-wave', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
@@ -139,29 +162,6 @@ const MapManager = (() => {
         'circle-color': '#ff0000',
         'circle-stroke-width': 2,
         'circle-stroke-color': '#ffffff'
-      }
-    });
-
-    // 6. 強震モニタ点 (最前面)
-    map.addSource('kmoni-points', {
-      type: 'geojson',
-      data: { type: 'FeatureCollection', features: [] }
-    });
-
-    map.addLayer({
-      id: 'kmoni-points-layer',
-      type: 'circle',
-      source: 'kmoni-points',
-      paint: {
-        'circle-radius': [
-          'interpolate', ['linear'], ['zoom'],
-          5, ['get', 'size'],
-          10, ['*', ['get', 'size'], 2]
-        ],
-        'circle-color': ['get', 'color'],
-        'circle-opacity': 0.9,
-        'circle-stroke-width': 0.5,
-        'circle-stroke-color': '#0e1321'
       }
     });
 
