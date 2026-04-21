@@ -1,0 +1,139 @@
+/* style.css - Earthquake Monitor UI Styles */
+
+body { 
+    margin: 0; 
+    background-color: #0e1321; 
+    color: #fff; 
+    overflow: hidden; 
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; 
+}
+
+#map { 
+    width: 100vw; 
+    height: 100vh; 
+}
+
+/* UIボックス共通設定 */
+.ui-box { 
+    background: rgba(14, 19, 33, 0.85); 
+    border: 1px solid #4a5568; 
+    z-index: 100; 
+    pointer-events: none; 
+    border-radius: 4px; 
+    position: absolute;
+    backdrop-filter: blur(4px);
+}
+
+/* 時計パネル */
+#clock-panel { 
+    top: 12px; 
+    left: 12px; 
+    padding: 10px 16px; 
+    min-width: 140px; 
+}
+#clock-date { 
+    font-size: 13px; 
+    color: #a0aec0; 
+}
+#clock-time { 
+    font-size: 24px; 
+    font-weight: bold; 
+    font-variant-numeric: tabular-nums; 
+}
+
+/* 震度別カラー (凡例: グラデーションバー) */
+#legend-panel { 
+    top: 12px; 
+    right: 12px; 
+    padding: 10px 14px; 
+    display: flex; 
+    flex-direction: column;
+    gap: 6px;
+    width: 280px;
+}
+.legend-gradient-bar {
+    width: 100%;
+    height: 12px;
+    border-radius: 2px;
+    background: linear-gradient(to right, 
+        rgb(0, 0, 205) 0%, 
+        rgb(0, 208, 139) 20%, 
+        rgb(63, 250, 54) 30%, 
+        rgb(255, 255, 0) 50%, 
+        rgb(255, 144, 0) 70%, 
+        rgb(255, 68, 0) 80%, 
+        rgb(170, 0, 0) 100%
+    );
+    border: 0.5px solid rgba(255,255,255,0.2);
+}
+.legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: bold;
+    color: #e2e8f0;
+    padding: 0 2px;
+}
+
+/* KMoniステータス/時刻 */
+#kmoni-time {
+    bottom: 12px;
+    left: 12px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+#status-panel {
+    bottom: 66px;
+    right: 12px;
+    padding: 6px 12px;
+    font-size: 12px;
+    width: 100px;
+    text-align: center;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background: #718096;
+}
+.status-connected { background: #48bb78; }
+.status-disconnected { background: #f56565; }
+
+/* 震度別カラー (凡例用 - 標準強震モニタ配色) 
+   ※グラデーション移行後は未使用だが必要なら保持 */
+.c0 { background: #c8c8c8; }
+.c1 { background: #3264ff; }
+.c2 { background: #00d2ff; }
+.c3 { background: #00d200; }
+.c4 { background: #ffff00; }
+.c5l { background: #ff9600; }
+.c5u { background: #ff6400; }
+.c6l { background: #ff2800; }
+.c6u { background: #c80000; }
+.c7 { background: #960096; }
+
+/* リセットボタン */
+#reset-btn { 
+    position: absolute; 
+    bottom: 20px; 
+    right: 12px; 
+    width: 126px; /* status-panel (100px + padding 24px + border 2px) に合わせる */
+    background: rgba(14, 19, 33, 0.8); 
+    border: 1px solid #4a5568; 
+    color: #fff; 
+    padding: 10px 0; 
+    font-size: 10px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    z-index: 999; 
+    pointer-events: auto;
+    transition: background 0.2s;
+}
+#reset-btn:hover { background: rgba(45, 55, 72, 0.9); }
+
+/* 隠しキャンバス */
+#kmoni-canvas { display: none; }

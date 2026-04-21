@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+*.log
+.gemini/
+.antigravity/
+tmp/
+dist/
+build/
+.env
+.cursor/
+.history/

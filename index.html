@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>強震モニタ - MapLibre爆速版</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- UI Panels -->
+    <div id="clock-panel" class="ui-box">
+        <div id="clock-date">----/--/-- (---)</div>
+        <div id="clock-time">00:00:00</div>
+    </div>
+
+    <div id="legend-panel" class="ui-box">
+        <div class="legend-labels">
+            <span>-3</span>
+            <span>0</span>
+            <span>2</span>
+            <span>4</span>
+            <span>6</span>
+            <span>7</span>
+        </div>
+        <div class="legend-gradient-bar"></div>
+        <div class="legend-labels" style="font-size: 9px; color: #a0aec0; margin-top: -2px;">
+            <span style="flex: 1; text-align: left;">リアルタイム震度</span>
+        </div>
+    </div>
+
+    <div id="kmoni-time" class="ui-box">
+        強震モニタ: 読込中...
+    </div>
+
+    <div id="status-panel" class="ui-box">
+        <span id="kmoni-status-dot" class="status-dot"></span>
+        <span id="kmoni-status-text">KMoni: OFF</span>
+    </div>
+
+    <button id="reset-btn">RESET VIEW</button>
+
+    <!-- Analysis Canvas (Hidden) -->
+    <canvas id="kmoni-canvas" width="352" height="400"></canvas>
+
+    <!-- Application Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/kmoni.js"></script>
+
+    <script>
+        /**
+         * App Initialization
+         */
+        (function() {
+            // UI helper
+            window.UI = {
+                setConnectionStatus: (service, status) => {
+                    const dot = document.getElementById('kmoni-status-dot');
+                    const text = document.getElementById('kmoni-status-text');
+                    if (status === 'connected') {
+                        dot.className = 'status-dot status-connected';
+                        text.innerText = 'KMoni: ON';
+                    } else {
+                        dot.className = 'status-dot status-disconnected';
+                        text.innerText = 'KMoni: OFF';
+                    }
+                }
+            };
+
+            // Clock Update
+            function updateClock() {
+                const now = new Date();
+                const dateHeader = now.toLocaleDateString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit',weekday:'short'}).toUpperCase();
+                const timeHeader = now.toLocaleTimeString('ja-JP', {hour12:false});
+                document.getElementById('clock-date').innerText = dateHeader;
+                document.getElementById('clock-time').innerText = timeHeader;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Main Loader
+            window.addEventListener('load', async () => {
+                console.log('[App] 起動中...');
+                try {
+                    await MapManager.init();
+                    await KmoniProcessor.init();
+                    KmoniProcessor.start();
+                    console.log('[App] 起動完了');
+                } catch (e) {
+                    console.error('[App] 初期化エラー:', e);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
