@@ -110,6 +110,38 @@ const MapManager = (() => {
       });
     }
 
+    // --- EEW Layers (P/S waves and Hypocenter) ---
+    
+    // P波 (青)
+    map.addSource('eew-p-wave', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({
+      id: 'eew-p-wave-layer', type: 'line', source: 'eew-p-wave',
+      paint: { 'line-color': '#00bfff', 'line-width': 2, 'line-opacity': 0.8 }
+    });
+
+    // S波 (赤)
+    map.addSource('eew-s-wave', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({
+      id: 'eew-s-wave-layer', type: 'fill', source: 'eew-s-wave',
+      paint: { 'fill-color': '#ff4500', 'fill-opacity': 0.15 }
+    });
+    map.addLayer({
+      id: 'eew-s-wave-line', type: 'line', source: 'eew-s-wave',
+      paint: { 'line-color': '#ff4500', 'line-width': 3, 'line-opacity': 0.9 }
+    });
+
+    // 震央 (×)
+    map.addSource('eew-hypocenter', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({
+      id: 'eew-hypocenter-layer', type: 'circle', source: 'eew-hypocenter',
+      paint: {
+        'circle-radius': 8,
+        'circle-color': '#ff0000',
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff'
+      }
+    });
+
     // 6. 強震モニタ点 (最前面)
     map.addSource('kmoni-points', {
       type: 'geojson',
@@ -148,6 +180,17 @@ const MapManager = (() => {
   }
 
   /**
+   * EEW情報の更新
+   * @param {Object} data { hypocenter: GeoJSON, pWave: GeoJSON, sWave: GeoJSON }
+   */
+  function updateEew(data) {
+    if (!map) return;
+    map.getSource('eew-hypocenter')?.setData(data.hypocenter);
+    map.getSource('eew-p-wave')?.setData(data.pWave);
+    map.getSource('eew-s-wave')?.setData(data.sWave);
+  }
+
+  /**
    * 視点のリセット
    */
   function resetView() {
@@ -163,6 +206,7 @@ const MapManager = (() => {
   return {
     init,
     updateKmoniPoints,
+    updateEew,
     resetView,
     getMap: () => map
   };

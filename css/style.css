@@ -137,3 +137,35 @@ body {
 
 /* 隠しキャンバス */
 #kmoni-canvas { display: none; }
+
+/* EEWアラートパネル */
+.eew-alert-panel {
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    padding: 15px;
+    background: rgba(229, 62, 62, 0.9) !important; /* Red background */
+    border: 3px solid #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    text-align: center;
+    pointer-events: auto;
+}
+.eew-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.eew-hypo {
+    font-size: 24px;
+    font-weight: bold;
+    background: #fff;
+    color: #e53e3e;
+    padding: 5px 0;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+.eew-info {
+    font-size: 16px;
+    font-weight: bold;
+}

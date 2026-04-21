@@ -64,6 +64,8 @@ const KmoniProcessor = (() => {
       if (displayTime !== lastProcessedTime) {
           lastProcessedTime = displayTime;
           await processImage(ts);
+          // 追加: EEW情報の更新
+          await EewManager.update(ts, displayTime);
       }
 
       if (window.UI) window.UI.setConnectionStatus('kmoni', 'connected');
