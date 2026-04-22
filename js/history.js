@@ -122,6 +122,9 @@ const HistoryManager = (() => {
             </div>
           </div>
         `).join('');
+
+        // 地図に震度分布を反映
+        HistoryDetailMap.updatePoints(match.points);
       } else {
         pointsList.innerText = '詳細な震度データが見つかりませんでした。';
       }
