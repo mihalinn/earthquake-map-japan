@@ -5,12 +5,12 @@ const CONFIG = {
   // --- API Endpoints ---
   KMONI_LATEST: '/api/kmoni/latest',
   KMONI_REALTIME: '/api/kmoni/realtime/',
-  
+
   // --- Map Settings ---
   MAP: {
-    CENTER: [137.5, 38.3],
-    ZOOM: 4.8,
-    MIN_ZOOM: 4,
+    CENTER: [137.0, 32.5],
+    ZOOM: 4,
+    MIN_ZOOM: 3,
     MAX_ZOOM: 14,
   },
 
@@ -31,7 +31,7 @@ function getIntensityColor(intensity) {
   const clamped = Math.max(-3.0, Math.min(7.0, intensity));
   const index = Math.round((clamped + 3.0) * 10);
   const colorData = KMONI_COLOR_TABLE[index];
-  
+
   if (colorData) {
     const [_, r, g, b] = colorData;
     return `rgb(${r},${g},${b})`;
@@ -43,11 +43,11 @@ function getIntensityColor(intensity) {
  * 震度→円のサイズ
  */
 function getIntensitySize(intensity) {
-  if (intensity >= 5.0) return 8;
-  if (intensity >= 3.0) return 6;
-  if (intensity >= 1.0) return 5;
-  if (intensity >= 0.0) return 4;
-  return 3;
+  if (intensity >= 5.0) return 6;
+  if (intensity >= 3.0) return 5;
+  if (intensity >= 1.0) return 4;
+  if (intensity >= 0.0) return 3;
+  return 2;
 }
 
 /**

@@ -32,19 +32,24 @@
             <span>7</span>
         </div>
         <div class="legend-gradient-bar"></div>
-        <div class="legend-labels" style="font-size: 9px; color: #a0aec0; margin-top: -2px;">
-            <span style="flex: 1; text-align: left;">リアルタイム震度</span>
-        </div>
     </div>
 
-    <div id="kmoni-time" class="ui-box">
+    <div id="kmoni-time">
         強震モニタ: 読込中...
+    </div>
+
+    <!-- Earthquake History Panel -->
+    <div id="history-panel" class="ui-box">
+        <div class="history-title">地震履歴</div>
+        <div id="history-list" style="color: #718096; font-size: 11px; text-align: center; margin-top: 50px;">
+            履歴データを準備中...
+        </div>
     </div>
 
     <!-- EEW Alert Panel (Hidden by default) -->
     <div id="eew-panel" class="ui-box eew-alert-panel" style="display: none;"></div>
 
-    <div id="status-panel" class="ui-box">
+    <div id="status-panel">
         <span id="kmoni-status-dot" class="status-dot"></span>
         <span id="kmoni-status-text">KMoni: OFF</span>
     </div>
