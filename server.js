@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const https = require('https');
 
 const PORT = 3003;
 
@@ -68,6 +69,44 @@ function proxyKmoni(targetUrl, res) {
       res.writeHead(504, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Proxy timeout' }));
     } catch (e) { /* ignore */ }
+  });
+
+  proxyReq.end();
+}
+
+/**
+ * HTTPS プロキシリクエスト (Wolfx用)
+ */
+function proxyHttps(targetUrl, res) {
+  const parsedUrl = url.parse(targetUrl);
+  let responded = false;
+
+  const options = {
+    hostname: parsedUrl.hostname,
+    port: 443,
+    path: parsedUrl.path,
+    method: 'GET',
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (MapLibreApp)',
+    },
+    timeout: 10000,
+  };
+
+  const proxyReq = https.request(options, (proxyRes) => {
+    if (responded) return;
+    responded = true;
+    res.writeHead(proxyRes.statusCode, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*',
+    });
+    proxyRes.pipe(res);
+  });
+
+  proxyReq.on('error', (err) => {
+    if (responded) return;
+    responded = true;
+    res.writeHead(502);
+    res.end(JSON.stringify({ error: 'Proxy error', message: err.message }));
   });
 
   proxyReq.end();
@@ -160,6 +199,16 @@ const server = http.createServer((req, res) => {
       `http://www.kmoni.bosai.go.jp/webservice/hypo/eew/${ts}.json`,
       res
     );
+    return;
+  }
+
+  // --- Wolfx API プロキシ ---
+  if (pathname === '/api/wolfx/eqlist') {
+    proxyHttps('https://api.wolfx.jp/jma_eqlist.json', res);
+    return;
+  }
+  if (pathname === '/api/wolfx/eew') {
+    proxyHttps('https://api.wolfx.jp/jma_eew.json', res);
     return;
   }
 

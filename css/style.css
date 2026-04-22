@@ -1,71 +1,74 @@
 /* style.css - Earthquake Monitor UI Styles */
 
-body { 
-    margin: 0; 
-    background-color: #0e1321; 
-    color: #fff; 
-    overflow: hidden; 
-    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; 
+body {
+    margin: 0;
+    background-color: #0e1321;
+    color: #fff;
+    overflow: hidden;
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
 }
 
-#map { 
-    width: 100vw; 
-    height: 100vh; 
+#map {
+    width: 100vw;
+    height: 100vh;
 }
 
 /* UIボックス共通設定 */
-.ui-box { 
-    background: rgba(14, 19, 33, 0.85); 
-    border: 1px solid #4a5568; 
-    z-index: 100; 
-    pointer-events: none; 
-    border-radius: 4px; 
+.ui-box {
+    background: rgba(14, 19, 33, 0.85);
+    border: 1px solid #4a5568;
+    z-index: 100;
+    pointer-events: none;
+    border-radius: 4px;
     position: absolute;
     backdrop-filter: blur(4px);
 }
 
 /* 時計パネル */
-#clock-panel { 
-    top: 12px; 
-    left: 12px; 
-    padding: 6px 10px; 
+#clock-panel {
+    top: 12px;
+    left: 12px;
+    padding: 6px 10px;
 }
-#clock-date { 
-    font-size: 11px; 
-    color: #a0aec0; 
+
+#clock-date {
+    font-size: 11px;
+    color: #a0aec0;
     margin-bottom: -2px;
 }
-#clock-time { 
-    font-size: 18px; 
-    font-weight: bold; 
-    font-variant-numeric: tabular-nums; 
+
+#clock-time {
+    font-size: 18px;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
 }
 
 /* 震度別カラー (凡例: グラデーションバー) */
-#legend-panel { 
-    top: 12px; 
-    right: 12px; 
-    padding: 4px 8px; 
-    display: flex; 
+#legend-panel {
+    top: 12px;
+    right: 12px;
+    padding: 4px 8px;
+    display: flex;
     flex-direction: column;
     gap: 2px;
     width: 130px;
 }
+
 .legend-gradient-bar {
     width: 100%;
     height: 5px;
     border-radius: 1px;
-    background: linear-gradient(to right, 
-        rgb(0, 0, 205) 0%, 
-        rgb(0, 208, 139) 20%, 
-        rgb(63, 250, 54) 30%, 
-        rgb(255, 255, 0) 50%, 
-        rgb(255, 144, 0) 70%, 
-        rgb(255, 68, 0) 80%, 
-        rgb(170, 0, 0) 100%
-    );
-    border: 0.5px solid rgba(255,255,255,0.2);
+    background: linear-gradient(to right,
+            rgb(0, 0, 205) 0%,
+            rgb(0, 208, 139) 20%,
+            rgb(63, 250, 54) 30%,
+            rgb(255, 255, 0) 50%,
+            rgb(255, 144, 0) 70%,
+            rgb(255, 68, 0) 80%,
+            rgb(170, 0, 0) 100%);
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
 }
+
 .legend-labels {
     display: flex;
     justify-content: space-between;
@@ -103,74 +106,152 @@ body {
     margin-right: 6px;
     background: #718096;
 }
-.status-connected { background: #48bb78; }
-.status-disconnected { background: #f56565; }
+
+.status-connected {
+    background: #48bb78;
+}
+
+.status-disconnected {
+    background: #f56565;
+}
 
 /* 震度別カラー (凡例用 - 標準強震モニタ配色) 
    ※グラデーション移行後は未使用だが必要なら保持 */
-.c0 { background: #c8c8c8; }
-.c1 { background: #3264ff; }
-.c2 { background: #00d2ff; }
-.c3 { background: #00d200; }
-.c4 { background: #ffff00; }
-.c5l { background: #ff9600; }
-.c5u { background: #ff6400; }
-.c6l { background: #ff2800; }
-.c6u { background: #c80000; }
-.c7 { background: #960096; }
+.c0 {
+    background: #c8c8c8;
+}
+
+.c1 {
+    background: #3264ff;
+}
+
+.c2 {
+    background: #00d2ff;
+}
+
+.c3 {
+    background: #00d200;
+}
+
+.c4 {
+    background: #ffff00;
+}
+
+.c5l {
+    background: #ff9600;
+}
+
+.c5u {
+    background: #ff6400;
+}
+
+.c6l {
+    background: #ff2800;
+}
+
+.c6u {
+    background: #c80000;
+}
+
+.c7 {
+    background: #960096;
+}
 
 /* リセットボタン */
-#reset-btn { 
-    position: absolute; 
-    bottom: 292px; 
-    right: 12px; 
+#reset-btn {
+    position: absolute;
+    bottom: 292px;
+    right: 12px;
     width: 100px;
-    background: rgba(14, 19, 33, 0.8); 
-    border: 1px solid #4a5568; 
-    color: #fff; 
-    padding: 8px 0; 
-    font-size: 10px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    z-index: 999; 
+    background: rgba(14, 19, 33, 0.8);
+    border: 1px solid #4a5568;
+    color: #fff;
+    padding: 8px 0;
+    font-size: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 999;
     pointer-events: auto;
     transition: background 0.2s;
 }
-#reset-btn:hover { background: rgba(45, 55, 72, 0.9); }
+
+#reset-btn:hover {
+    background: rgba(45, 55, 72, 0.9);
+}
 
 /* 隠しキャンバス */
-#kmoni-canvas { display: none; }
+#kmoni-canvas {
+    display: none;
+}
 
 /* EEWアラートパネル */
-.eew-alert-panel {
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    padding: 15px;
-    background: rgba(229, 62, 62, 0.9) !important; /* Red background */
-    border: 3px solid #fff;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    text-align: center;
-    pointer-events: auto;
-}
-.eew-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.eew-hypo {
-    font-size: 24px;
-    font-weight: bold;
-    background: #fff;
-    color: #e53e3e;
-    padding: 5px 0;
-    margin-bottom: 5px;
+/* EEW Panel (Simple & Compact) */
+#eew-panel {
+    position: absolute;
+    top: 95px;
+    left: 10px;
+    width: 210px;
+    background: rgba(26, 26, 32, 0.9) !important;
+    border: 1px solid #ff4b4b !important;
     border-radius: 4px;
+    padding: 10px;
+    z-index: 1000;
+    color: white;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: none !important;
 }
-.eew-info {
-    font-size: 16px;
+
+.eew-title {
+    font-size: 10px;
     font-weight: bold;
+    color: #ff4b4b;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 75, 75, 0.2);
+    text-align: left;
+}
+
+.eew-hypo {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #fff;
+    text-align: left;
+}
+
+.eew-detail-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.eew-intensity-badge {
+    background: #ff4b4b;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    text-align: center;
+    min-width: 50px;
+}
+
+.eew-intensity-label {
+    font-size: 7px;
+    display: block;
+    line-height: 1;
+}
+
+.eew-intensity-value {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.eew-mag-depth {
+    font-size: 11px;
+    color: #a0aec0;
+    line-height: 1.3;
+    text-align: left;
 }
 
 /* 隠しテストボタン */
@@ -184,8 +265,10 @@ body {
     cursor: pointer;
     z-index: 1000;
 }
+
 #test-eew-btn:hover {
-    background: rgba(255,255,255,0.05); /* 探しやすいようにホバー時のみ超微かに表示 */
+    background: rgba(255, 255, 255, 0.05);
+    /* 探しやすいようにホバー時のみ超微かに表示 */
 }
 
 /* 地震履歴パネル */
@@ -202,8 +285,9 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    pointer-events: auto; /* スクロール可能にするため */
+    pointer-events: auto;
 }
+
 .history-title {
     font-size: 12px;
     font-weight: bold;
@@ -211,4 +295,92 @@ body {
     margin-bottom: 8px;
     border-left: 3px solid #4a5568;
     padding-left: 8px;
+}
+
+#history-list {
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* 履歴アイテム */
+.history-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.history-item-left {
+    margin-right: 12px;
+}
+
+.history-item-main {
+    flex: 1;
+}
+
+.history-item-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.history-hypo {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.history-time {
+    font-size: 11px;
+    color: #a0aec0;
+}
+
+.history-item-bottom {
+    font-size: 11px;
+    color: #a0aec0;
+}
+
+/* 震度バッジ */
+.intensity-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.int-low {
+    background: #3264ff;
+}
+
+.int-3 {
+    background: #00d200;
+}
+
+.int-4 {
+    background: #ffff00;
+    color: #000;
+    text-shadow: none;
+}
+
+.int-5 {
+    background: #ff9600;
+}
+
+.int-6 {
+    background: #ff2800;
+}
+
+.int-7 {
+    background: #960096;
 }

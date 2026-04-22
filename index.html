@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>強震モニタ - MapLibre爆速版</title>
-    
+
     <!-- External CSS -->
     <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
     <link rel="stylesheet" href="css/style.css">
@@ -13,6 +14,7 @@
     <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
 </head>
+
 <body>
     <div id="map"></div>
 
@@ -55,7 +57,7 @@
     </div>
 
     <button id="reset-btn">RESET VIEW</button>
-    
+
     <!-- Hidden Test Button -->
     <div id="test-eew-btn"></div>
 
@@ -67,12 +69,13 @@
     <script src="js/map.js"></script>
     <script src="js/eew.js"></script>
     <script src="js/kmoni.js"></script>
+    <script src="js/history.js"></script>
 
     <script>
         /**
          * App Initialization
          */
-        (function() {
+        (function () {
             // UI helper
             window.UI = {
                 setConnectionStatus: (service, status) => {
@@ -91,8 +94,8 @@
             // Clock Update
             function updateClock() {
                 const now = new Date();
-                const dateHeader = now.toLocaleDateString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit',weekday:'short'}).toUpperCase();
-                const timeHeader = now.toLocaleTimeString('ja-JP', {hour12:false});
+                const dateHeader = now.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' }).toUpperCase();
+                const timeHeader = now.toLocaleTimeString('ja-JP', { hour12: false });
                 document.getElementById('clock-date').innerText = dateHeader;
                 document.getElementById('clock-time').innerText = timeHeader;
             }
@@ -106,6 +109,7 @@
                     await MapManager.init();
                     await KmoniProcessor.init();
                     KmoniProcessor.start();
+                    HistoryManager.init();
                     console.log('[App] 起動完了');
                 } catch (e) {
                     console.error('[App] 初期化エラー:', e);
@@ -114,4 +118,5 @@
         })();
     </script>
 </body>
+
 </html>
