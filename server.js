@@ -212,6 +212,18 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // --- P2P地震情報 プロキシ ---
+  if (pathname === '/api/p2p/history') {
+    proxyHttps('https://api.p2pquake.net/v2/history?codes=551&limit=50', res);
+    return;
+  }
+
+  // --- 気象庁公式 プロキシ ---
+  if (pathname === '/api/jma/list') {
+    proxyHttps('https://www.jma.go.jp/bosai/quake/data/list.json', res);
+    return;
+  }
+
   // --- 静的ファイル ---
   serveStatic(pathname, res);
 });

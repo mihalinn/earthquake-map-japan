@@ -61,6 +61,8 @@ const EewManager = (() => {
     }, 60000);
   }
 
+  let hasActiveEew = false; // EEWが表示中かどうかのフラグ
+
   /**
    * EEW情報を取得
    */
@@ -87,9 +89,13 @@ const EewManager = (() => {
           return;
       }
 
-      // データがない場合
-      stopAnimation();
-      clearEew();
+      // データがない場合: すでに表示中だった場合のみクリア処理を行う
+      if (hasActiveEew) {
+          console.log('[EEW] 地震情報が終了しました。画面をクリアします。');
+          stopAnimation();
+          clearEew();
+          hasActiveEew = false;
+      }
     } catch (e) {
       console.warn("[EEW] 取得エラー:", e);
     }
@@ -127,6 +133,7 @@ const EewManager = (() => {
    */
   function handleEewData(data, currentDisplayTime) {
     activeEew = data;
+    hasActiveEew = true; // フラグを立てる
     lastUpdateSystemTime = Date.now();
     lastDisplayTimeDate = parseKmoniTime(currentDisplayTime);
 

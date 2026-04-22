@@ -16,7 +16,9 @@
 </head>
 
 <body>
+    <!-- Main Map Container -->
     <div id="map"></div>
+    <div id="history-detail-map" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 280px); z-index: 1000; background: #0e1321;"></div>
 
     <!-- UI Panels -->
     <div id="clock-panel" class="ui-box">
@@ -42,9 +44,21 @@
 
     <!-- Earthquake History Panel -->
     <div id="history-panel" class="ui-box">
-        <div class="history-title">地震履歴</div>
-        <div id="history-list" style="color: #718096; font-size: 11px; text-align: center; margin-top: 50px;">
-            履歴データを準備中...
+        <div id="history-list-view">
+            <div class="history-title">地震履歴</div>
+            <div id="history-list" style="color: #718096; font-size: 11px; text-align: center; margin-top: 50px;">
+                履歴データを準備中...
+            </div>
+        </div>
+        
+        <div id="history-detail-view" style="display: none;">
+            <div class="history-title">
+                <span id="history-back-btn" style="cursor: pointer; color: #4a90e2; font-size: 12px; margin-right: 8px;">◀ 戻る</span>
+                地震詳細情報
+            </div>
+            <div id="history-detail-content" style="padding-top: 10px;">
+                <!-- ここに詳細が挿入されます -->
+            </div>
         </div>
     </div>
 
@@ -70,6 +84,7 @@
     <script src="js/eew.js"></script>
     <script src="js/kmoni.js"></script>
     <script src="js/history.js"></script>
+    <script src="js/history-detail.js"></script>
 
     <script>
         /**

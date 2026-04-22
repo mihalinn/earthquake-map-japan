@@ -297,7 +297,14 @@ body {
     padding-left: 8px;
 }
 
-#history-list {
+#history-list-view, #history-detail-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+#history-list, #history-detail-content {
     overflow-y: auto;
     flex: 1;
 }
@@ -359,28 +366,14 @@ body {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.int-low {
-    background: #3264ff;
-}
-
-.int-3 {
-    background: #00d200;
-}
-
-.int-4 {
-    background: #ffff00;
-    color: #000;
-    text-shadow: none;
-}
-
-.int-5 {
-    background: #ff9600;
-}
-
-.int-6 {
-    background: #ff2800;
-}
-
-.int-7 {
-    background: #960096;
-}
+.int-1 { background: #4682b4; } /* 鋼青色 */
+.int-2 { background: #00bfff; } /* スカイブルー */
+.int-3 { background: #00d200; } /* 緑 */
+.int-4 { background: #ffff00; color: #000; text-shadow: none; } /* 黄 */
+.int-5l { background: #ff9600; } /* 5弱: オレンジ */
+.int-5u { background: #ff6400; } /* 5強: 濃いオレンジ */
+.int-6l { background: #ff2800; } /* 6弱: 赤 */
+.int-6u { background: #a50000; } /* 6強: 濃い赤 */
+.int-7  { background: #960096; } /* 紫 */
+.int-unknown { background: #4a5568; color: #fff; } /* 不明: グレー */
+.int-low { background: #2d3748; color: #a0aec0; font-size: 10px; } /* 震度1未満 */
